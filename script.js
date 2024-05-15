@@ -58,45 +58,13 @@ function saveFamilies() {
   fetch('families.json')
     .then(response => {
       if (response.ok) {
-        return response.text(); // Read response as text
+        return response.json();
       } else {
-        return Promise.resolve(''); // Return empty string if file doesn't exist
+        throw new Error('Failed to fetch families.json');
       }
     })
     .then(data => {
-      if (!data) {
-        data = '[]'; // If data is empty, initialize with empty array
-      }
-
-      // Parse JSON data
-      const jsonData = JSON.parse(data);
-
-      // Check for duplicate family names
-      const existingFamilyNames = jsonData.map(family => family.name);
-      const newFamilyNames = familyExpenses.map(family => family.name);
-      const uniqueFamilyNames = new Set([...existingFamilyNames, ...newFamilyNames]);
-
-      // Filter out families with duplicate names
-      const uniqueFamilies = familyExpenses.filter(family => uniqueFamilyNames.has(family.name));
-
-      // Merge existing and new families
-      const updatedData = [...jsonData, ...uniqueFamilies];
-
-      // Convert the data to JSON
-      const updatedJsonData = JSON.stringify(updatedData);
-
-      // Save the updated data to the file
-      const file = new Blob([updatedJsonData], { type: 'application/json' });
-      const url = URL.createObjectURL(file);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'families.json';
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(() => {
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-      }, 0);
+      console.log('Fetched data:', data);
       alert("Families saved successfully!");
     })
     .catch(error => {
@@ -104,6 +72,7 @@ function saveFamilies() {
       alert("Failed to save families. Please try again later.");
     });
 }
+
 
 // Save events to JSON
 function saveEvents() {
