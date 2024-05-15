@@ -23,12 +23,50 @@
     <button onclick="addEvent()">Add Event</button>
     <button onclick="calculateExpenses()">Calculate Expenses</button>
     <button onclick="logout()">Logout</button>
+    <div id="eventForm" style="display: none;">
+      <h3>Add Event</h3>
+      <label for="eventName">Event Name:</label>
+      <input type="text" id="eventName" placeholder="Event Name"><br>
+      <label for="eventVenue">Venue:</label>
+      <input type="text" id="eventVenue" placeholder="Event Venue"><br>
+      <label for="eventDate">Date:</label>
+      <input type="date" id="eventDate"><br>
+      <label for="eventStartTime">Start Time:</label>
+      <input type="time" id="eventStartTime"><br>
+      <label for="eventDuration">Duration:</label>
+      <input type="text" id="eventDuration" placeholder="Event Duration"><br>
+      <label for="eventFor">For (SSUMATES or SSUFAMILY):</label>
+      <select id="eventFor">
+        <option value="SSUMATES">SSUMATES</option>
+        <option value="SSUFAMILY">SSUFAMILY</option>
+      </select><br>
+      <button onclick="submitEvent()">Submit Event</button>
+    </div>
   </div>
 
   <div id="familyPanel" style="display: none;">
     <!-- Family member functionalities -->
     <h2>Family Panel</h2>
-    <!-- Add family member functionalities here -->
+    <div>
+      <h3>Add Family Event</h3>
+      <label for="event_name">Event Name:</label>
+      <input type="text" id="event_name" placeholder="Event Name"><br>
+      <label for="event_date">Date:</label>
+      <input type="date" id="event_date"><br>
+      <label for="event_description">Description:</label>
+      <textarea id="event_description" placeholder="Event Description"></textarea><br>
+      <button onclick="addFamilyEvent()">Add Event</button>
+    </div>
+    <div>
+      <h3>Add Expense Details</h3>
+      <label for="expense_name">Expense Name:</label>
+      <input type="text" id="expense_name" placeholder="Expense Name"><br>
+      <label for="expense_amount">Amount:</label>
+      <input type="number" id="expense_amount" placeholder="Expense Amount"><br>
+      <label for="expense_description">Description:</label>
+      <textarea id="expense_description" placeholder="Expense Description"></textarea><br>
+      <button onclick="addExpense()">Add Expense</button>
+    </div>
     <button onclick="logout()">Logout</button>
   </div>
 
