@@ -9,22 +9,27 @@
 <body>
   <h1>Expense Management</h1>
 
-  <h2>Add Expense Heads</h2>
-  <form id="expenseForm">
-    <label for="infantExpense">Infant Expense:</label>
-    <input type="number" id="infantExpense" min="0" value="0"><br>
+  <div id="loginForm">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+  </div>
 
-    <label for="childExpense">Child Expense:</label>
-    <input type="number" id="childExpense" min="0" value="0"><br>
+  <div id="adminPanel" style="display: none;">
+    <!-- Admin functionalities -->
+    <h2>Admin Panel</h2>
+    <button onclick="addFamily()">Add Family</button>
+    <button onclick="addEvent()">Add Event</button>
+    <button onclick="calculateExpenses()">Calculate Expenses</button>
+    <button onclick="logout()">Logout</button>
+  </div>
 
-    <label for="adultExpense">Adult Expense:</label>
-    <input type="number" id="adultExpense" min="0" value="0"><br>
-
-    <button type="button" onclick="calculateExpenses()">Calculate Expenses</button>
-  </form>
-
-  <div id="expenseResult">
-    <!-- Expenses will be displayed here -->
+  <div id="familyPanel" style="display: none;">
+    <!-- Family member functionalities -->
+    <h2>Family Panel</h2>
+    <!-- Add family member functionalities here -->
+    <button onclick="logout()">Logout</button>
   </div>
 
   <script src="script.js"></script>
