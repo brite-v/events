@@ -54,18 +54,25 @@ function loadEvents() {
 
 // Save families to JSON
 function saveFamilies() {
-  // Check if the families file already exists
+  // Load existing families data or create new array if file is empty
   fetch('families.json')
     .then(response => {
       if (response.ok) {
-        return response.json();
+        return response.text(); // Read response as text
       } else {
-        return Promise.resolve([]); // Return empty array if file doesn't exist
+        return Promise.resolve(''); // Return empty string if file doesn't exist
       }
     })
     .then(data => {
+      if (!data) {
+        data = '[]'; // If data is empty, initialize with empty array
+      }
+
+      // Parse JSON data
+      const jsonData = JSON.parse(data);
+
       // Check for duplicate family names
-      const existingFamilyNames = data.map(family => family.name);
+      const existingFamilyNames = jsonData.map(family => family.name);
       const newFamilyNames = familyExpenses.map(family => family.name);
       const uniqueFamilyNames = new Set([...existingFamilyNames, ...newFamilyNames]);
 
@@ -73,13 +80,13 @@ function saveFamilies() {
       const uniqueFamilies = familyExpenses.filter(family => uniqueFamilyNames.has(family.name));
 
       // Merge existing and new families
-      const updatedData = [...data, ...uniqueFamilies];
+      const updatedData = [...jsonData, ...uniqueFamilies];
 
       // Convert the data to JSON
-      const jsonData = JSON.stringify(updatedData);
+      const updatedJsonData = JSON.stringify(updatedData);
 
       // Save the updated data to the file
-      const file = new Blob([jsonData], { type: 'application/json' });
+      const file = new Blob([updatedJsonData], { type: 'application/json' });
       const url = URL.createObjectURL(file);
       const a = document.createElement('a');
       a.href = url;
