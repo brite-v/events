@@ -56,7 +56,13 @@ function loadEvents() {
 function saveFamilies() {
   // Check if the families file already exists
   fetch('families.json')
-    .then(response => response.json())
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.resolve([]); // Return empty array if file doesn't exist
+      }
+    })
     .then(data => {
       // Check for duplicate family names
       const existingFamilyNames = data.map(family => family.name);
@@ -66,12 +72,12 @@ function saveFamilies() {
       // Filter out families with duplicate names
       const uniqueFamilies = familyExpenses.filter(family => uniqueFamilyNames.has(family.name));
 
-      // Append the unique families to the existing data
+      // Merge existing and new families
       const updatedData = [...data, ...uniqueFamilies];
 
       // Convert the data to JSON
       const jsonData = JSON.stringify(updatedData);
-      alert(jsonData);
+
       // Save the updated data to the file
       const file = new Blob([jsonData], { type: 'application/json' });
       const url = URL.createObjectURL(file);
@@ -91,7 +97,6 @@ function saveFamilies() {
       alert("Failed to save families. Please try again later.");
     });
 }
-
 
 // Save events to JSON
 function saveEvents() {
