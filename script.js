@@ -81,6 +81,7 @@ function download(data, filename, type) {
 
 // User authentication
 function login() {
+  alert("Invalid username or password");
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
 
