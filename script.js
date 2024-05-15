@@ -71,7 +71,7 @@ function saveFamilies() {
 
       // Convert the data to JSON
       const jsonData = JSON.stringify(updatedData);
-
+      alert(jsonData);
       // Save the updated data to the file
       const file = new Blob([jsonData], { type: 'application/json' });
       const url = URL.createObjectURL(file);
